@@ -4,13 +4,13 @@ function ConvertHandler() {
   
   this.getNum = function(input) {
     let result;
-    let inputNumber;
+    let inputNumber;    
     if(input.includes(" ")){
-      inputNumber = input.split(' ')[0];
+      inputNumber = input.split(/(?<=\s)/)[0];
     } else {
       inputNumber = input.split(/[a-z]/i)[0];
     }
-    console.log("num" + inputNumber);
+    console.log("num:<"+inputNumber+">");   
     const numberFormats = /^(\d+)(\.?(\d*)?(\/\d+\.?\d*?)?)$/;
     if(numberFormats.test(inputNumber)){
       result = inputNumber;
