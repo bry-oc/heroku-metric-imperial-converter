@@ -2,13 +2,16 @@ function ConvertHandler() {
   
   this.getNum = function(input) {
     let result;
-    
+    let inputNumber = input.split(/[a-z]||[A-Z]/)[0];
+    result = inputNumber;
     return result;
   };
   
   this.getUnit = function(input) {
     let result;
-    
+    let inputSplit = input.split(/\d/);
+    const inputUnit = inputSplit[inputSplit.length - 1];
+    result = inputUnit;
     return result;
   };
   
