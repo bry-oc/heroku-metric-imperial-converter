@@ -1,8 +1,16 @@
+const e = require("express");
+
 function ConvertHandler() {
   
   this.getNum = function(input) {
     let result;
-    const inputNumber = input.split(/[a-z]/i)[0];
+    let inputNumber;
+    if(input.includes(" ")){
+      inputNumber = input.split(' ')[0];
+    } else {
+      inputNumber = input.split(/[a-z]/i)[0];
+    }
+    console.log("num" + inputNumber);
     const numberFormats = /^(\d+)(\.?(\d*)?(\/\d+\.?\d*?)?)$/;
     if(numberFormats.test(inputNumber)){
       result = inputNumber;
@@ -12,9 +20,18 @@ function ConvertHandler() {
   
   this.getUnit = function(input) {
     let result;
-    let inputSplit = input.split(/\d/);
+    let inputSplit;
+    if(input.includes(" ")){
+      inputSplit = input.split(' ');
+    } else {
+      inputSplit = input.split(/\d/);
+    }    
     const inputUnit = inputSplit[inputSplit.length - 1];
-    result = inputUnit;
+    console.log(inputUnit)
+    const unitFormats = /^(gal)$|^l$|^(mi)$|^(km)$|^(lbs)$|^(kg)$/ig;
+    if(unitFormats.test(inputUnit)){
+      result = inputUnit
+    }
     return result;
   };
   
