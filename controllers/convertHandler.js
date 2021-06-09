@@ -2,8 +2,11 @@ function ConvertHandler() {
   
   this.getNum = function(input) {
     let result;
-    let inputNumber = input.split(/[a-z]||[A-Z]/)[0];
-    result = inputNumber;
+    const inputNumber = input.split(/[a-z]/i)[0];
+    const numberFormats = /^(\d+)(\.?(\d*)?(\/\d+\.?\d*?)?)$/;
+    if(numberFormats.test(inputNumber)){
+      result = inputNumber;
+    }
     return result;
   };
   

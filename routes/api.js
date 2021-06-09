@@ -11,5 +11,13 @@ module.exports = function (app) {
     const input = req.query.input;
     const inputNumber = convertHandler.getNum(input);
     const inputUnit = convertHandler.getUnit(input);
+    console.log(inputNumber);
+    console.log(inputUnit);
+    if(inputNumber === undefined){
+      return res.json(`invalid number`);
+    }
+    if(inputUnit === undefined){
+      return res.json('invalid unit');
+    }
   })
 };
