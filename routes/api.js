@@ -13,17 +13,17 @@ module.exports = function (app) {
     const inputNumber = convertHandler.getNum(input);
     const inputUnit = convertHandler.getUnit(input);
     //if either number or input is invalid, let the user know
-    if(inputNumber === undefined && inputUnit === undefined){
+    if(inputNumber === 'invalid number' && inputUnit === 'invalid unit'){
       return res.json('invalid number and unit');
     }
-    if(inputNumber === undefined){
+    if(inputNumber === `invalid number`){
       return res.json(`invalid number`);
     }
-    if(inputUnit === undefined){
+    if(inputUnit === 'invalid unit'){
       return res.json('invalid unit');
     }
     //otherwise convert the given input
-    const convertNumber = parseFloat(convertHandler.convert(inputNumber, inputUnit).toFixed(5));
+    const convertNumber = parseFloat(convertHandler.convert(inputNumber, inputUnit));
     const convertUnit = convertHandler.getReturnUnit(inputUnit);
     const convertString = convertHandler.getString(inputNumber, inputUnit, convertNumber, convertUnit);
     return res.json({initNum: inputNumber, initUnit: inputUnit, returnNum: convertNumber, returnUnit: convertUnit, string: convertString});

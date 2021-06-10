@@ -24,6 +24,8 @@ function ConvertHandler() {
       } else {
         result = parseFloat(inputNumber);
       }
+    } else {
+      result = `invalid number`;
     }
     return result;
   };
@@ -44,6 +46,8 @@ function ConvertHandler() {
       } else {
         result = inputUnit.toLowerCase();
       }      
+    } else {
+      result = 'invalid unit'
     }
     return result;    
   };
@@ -102,6 +106,7 @@ function ConvertHandler() {
     } else if(initUnit === 'kg'){
       result = initNum / lbsToKg;
     }   
+    result = result.toFixed(5);
     return result;
   };
   
