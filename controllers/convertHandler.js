@@ -71,10 +71,25 @@ function ConvertHandler() {
   
   this.convert = function(initNum, initUnit) {
     const galToL = 3.78541;
+    const lToGal = 0.264172
     const lbsToKg = 0.453592;
+    const kgToLbs = 2.20462;
     const miToKm = 1.60934;
+    const kmToMi = 0.621371;
     let result;
-    
+    if(initUnit === 'gal'){
+      result = initNum * galToL;
+    } else if(initUnit === 'l'){
+      result = initNum * lToGal;
+    } else if(initUnit === 'mi'){
+      result = initNum * miToKm;
+    } else if(initUnit === 'km'){
+      result = initNum * kmToMi;
+    } else if(initUnit === 'lbs'){
+      result = initNum * lbsToKg;
+    } else if(initUnit === 'kg'){
+      result = initNum * kgToLbs;
+    }    
     return result;
   };
   
