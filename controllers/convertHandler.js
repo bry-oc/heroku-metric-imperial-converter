@@ -10,11 +10,14 @@ function ConvertHandler() {
     } else {
       inputNumber = input.split(/[a-z]/i)[0];
     } 
+    if(inputNumber === ""){
+      result = 1;
+      return result;
+    }
     const numberFormats = /^(\d+)(\.?(\d*)?(\/\d+\.?\d*?)?)$/;
     if(numberFormats.test(inputNumber)){
       fractionFormat = /.+\/.+/;
-      if(fractionFormat){
-        console.log('fraction');
+      if(fractionFormat.test(inputNumber)){
         const top = inputNumber.split('/')[0];
         const bottom = inputNumber.split('/')[1];
         result = top / bottom;
@@ -36,16 +39,20 @@ function ConvertHandler() {
     const inputUnit = inputSplit[inputSplit.length - 1];
     const unitFormats = /^(gal)$|^l$|^(mi)$|^(km)$|^(lbs)$|^(kg)$/ig;
     if(unitFormats.test(inputUnit)){
-      result = inputUnit;
+      if(inputUnit.toLowerCase() === 'l'){
+        result = 'L';
+      } else {
+        result = inputUnit.toLowerCase();
+      }      
     }
-    return result;
+    return result;    
   };
   
   this.getReturnUnit = function(initUnit) {
     let result;
     if(initUnit === 'gal'){
-      result = 'l';
-    } else if(initUnit === 'l'){
+      result = 'L';
+    } else if(initUnit === 'L'){
       result = 'gal';
     } else if(initUnit === 'mi'){
       result = 'km';
@@ -63,7 +70,7 @@ function ConvertHandler() {
     let result;
     if(unit === 'gal'){
       result = 'gallons';
-    } else if(unit === 'l'){
+    } else if(unit === 'L'){
       result = 'liters';
     } else if(unit === 'mi'){
       result = 'miles';
@@ -79,24 +86,21 @@ function ConvertHandler() {
   
   this.convert = function(initNum, initUnit) {
     const galToL = 3.78541;
-    const lToGal = 0.264172
     const lbsToKg = 0.453592;
-    const kgToLbs = 2.20462;
     const miToKm = 1.60934;
-    const kmToMi = 0.621371;
     let result;
     if(initUnit === 'gal'){
       result = initNum * galToL;
-    } else if(initUnit === 'l'){
-      result = initNum * lToGal;
+    } else if(initUnit === 'L'){
+      result = initNum / galToL;
     } else if(initUnit === 'mi'){
       result = initNum * miToKm;
     } else if(initUnit === 'km'){
-      result = initNum * kmToMi;
+      result = initNum / miToKm;
     } else if(initUnit === 'lbs'){
       result = initNum * lbsToKg;
     } else if(initUnit === 'kg'){
-      result = initNum * kgToLbs;
+      result = initNum / lbsToKg;
     }   
     return result;
   };
