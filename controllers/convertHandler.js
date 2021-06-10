@@ -12,7 +12,15 @@ function ConvertHandler() {
     } 
     const numberFormats = /^(\d+)(\.?(\d*)?(\/\d+\.?\d*?)?)$/;
     if(numberFormats.test(inputNumber)){
-      result = inputNumber;
+      fractionFormat = /.+\/.+/;
+      if(fractionFormat){
+        console.log('fraction');
+        const top = inputNumber.split('/')[0];
+        const bottom = inputNumber.split('/')[1];
+        result = top / bottom;
+      } else {
+        result = parseFloat(inputNumber);
+      }
     }
     return result;
   };
@@ -28,7 +36,7 @@ function ConvertHandler() {
     const inputUnit = inputSplit[inputSplit.length - 1];
     const unitFormats = /^(gal)$|^l$|^(mi)$|^(km)$|^(lbs)$|^(kg)$/ig;
     if(unitFormats.test(inputUnit)){
-      result = inputUnit
+      result = inputUnit;
     }
     return result;
   };
@@ -53,17 +61,17 @@ function ConvertHandler() {
 
   this.spellOutUnit = function(unit) {
     let result;
-    if(initUnit === 'gal'){
+    if(unit === 'gal'){
       result = 'gallons';
-    } else if(initUnit === 'l'){
+    } else if(unit === 'l'){
       result = 'liters';
-    } else if(initUnit === 'mi'){
+    } else if(unit === 'mi'){
       result = 'miles';
-    } else if(initUnit === 'km'){
+    } else if(unit === 'km'){
       result = 'kilometers';
-    } else if(initUnit === 'lbs'){
+    } else if(unit === 'lbs'){
       result = 'pounds';
-    } else if(initUnit === 'kg'){
+    } else if(unit === 'kg'){
       result = 'kilograms';
     }
     return result;
@@ -89,13 +97,13 @@ function ConvertHandler() {
       result = initNum * lbsToKg;
     } else if(initUnit === 'kg'){
       result = initNum * kgToLbs;
-    }    
+    }   
     return result;
   };
   
   this.getString = function(initNum, initUnit, returnNum, returnUnit) {
     let result;
-    result = initNum + " " + initUnit + " converts to " + returnNum + " " + returnUnit;
+    result = initNum + " " + this.spellOutUnit(initUnit) + " converts to " + returnNum + " " + this.spellOutUnit(returnUnit);
     return result;
   };
   
